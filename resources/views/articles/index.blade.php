@@ -4,6 +4,12 @@
 
         {{ $articles->links() }}
 
+        @if (session("info"))
+            <div class="alert alert-info">
+                {{ session("info")}}
+            </div>
+        @endif
+
         @foreach ($articles as $article)
             <div class="card mb-2">
                 <div class="card-body">
@@ -14,6 +20,10 @@
                         </small>
                     </div>
                     <div>{{ $article->body }}</div>
+
+                    <a href="{{ url("/articles/detail/$article->id")}}">
+                        View Detail
+                    </a>
                 </div>
             </div>
         @endforeach
