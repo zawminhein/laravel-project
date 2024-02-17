@@ -16,6 +16,14 @@
                     <h3>{{ $article->title }}</h3>
                     <div>
                         <small class="text-muted">
+                            <b>Category: </b>
+                            <span class="text-success">
+                                {{ $article->category->name}},
+                            </span>
+                            <b>Comment: </b>
+                            <span class="text-success">
+                                {{ count($article->comments) }},
+                            </span>
                             {{ $article->created_at }}
                         </small>
                     </div>

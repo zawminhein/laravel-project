@@ -7,6 +7,10 @@
                <h3>{{ $article->title }}</h3>
                   <div>
                      <small class="text-muted">
+                        <b>Category: </b>
+                           <span class="text-success">
+                              {{ $article->category->name}},
+                           </span>
                         {{ $article->created_at }}
                      </small>
                   </div>
@@ -19,5 +23,18 @@
                   </a>
             </div>
          </div>
+
+         <ul class="list-group mt-4">
+            <li class="list-group-item active">
+               Comments ({{ count($article->comments) }})
+            </li>
+            @foreach ($article->comments as $comment)
+               <li class="list-group-item">
+                  <a href="{{ url("/comments/delete/$comment->id") }}" class="btn-close float-end"></a>
+
+                  {{ $comment->content }}
+               </li>
+            @endforeach
+         </ul>
     </div>
 @endsection
