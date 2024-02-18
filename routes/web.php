@@ -13,7 +13,9 @@ Route::get('/articles/add', [ArticleController::class, 'add']);
 Route::post('/articles/add', [ArticleController::class, 'create']);
 
 Route::get('comments/delete/{id}', [CommentController::class, 'delete']);
-Route::get('comments/add', [CommentController::class, 'create']);
+Route::post('comments/add', [CommentController::class, 'create']);
+
+Route::get('/articles/edit', [ArticleController::class, 'edit']);
 
 // Route::get('/articles/detail/{id}', function($id) {
 //     return "Detail Page $id";

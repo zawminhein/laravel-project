@@ -15,6 +15,9 @@
                 <div class="card-body">
                     <h3>{{ $article->title }}</h3>
                     <div>
+                        <b class="text-success">
+                            {{ $article->user->name }}
+                        </b>,
                         <small class="text-muted">
                             <b>Category: </b>
                             <span class="text-success">

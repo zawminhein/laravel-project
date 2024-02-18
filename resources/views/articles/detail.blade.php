@@ -2,10 +2,19 @@
 @section('content')
     <div class="container" style="max-width: 800px">
 
+      @if (session("info"))
+         <div class="alert alert-info">
+            {{ session("info") }}
+         </div>
+      @endif
+
          <div class="card mb-2 border-primary">
             <div class="card-body">
                <h3>{{ $article->title }}</h3>
                   <div>
+                     <b class="text-success">
+                        {{ $article->user->name }}
+                    </b>,
                      <small class="text-muted">
                         <b>Category: </b>
                            <span class="text-success">
@@ -18,8 +27,13 @@
                      {{ $article->body }}
                   </div>
 
-                  <a href="{{ url("/articles/delete/$article->id")}}" class="btn btn-outline-danger">
+                  @can('delete-article', $article)
+                     <a href="{{ url("/articles/delete/$article->id")}}" class="btn btn-outline-danger">
                      Delete
+                  </a>
+                  @endcan
+                  <a href="{{ url("/articles/edit/$article->id")}}" class="btn btn-outline-primary">
+                     Edit
                   </a>
             </div>
          </div>
@@ -30,11 +44,25 @@
             </li>
             @foreach ($article->comments as $comment)
                <li class="list-group-item">
-                  <a href="{{ url("/comments/delete/$comment->id") }}" class="btn-close float-end"></a>
+                  @can('delete-comment', $comment)
+                     <a href="{{ url("/comments/delete/$comment->id") }}" class="btn-close float-end"></a>
+                  @endcan
 
+                  <b class="text-success">
+                     {{ $comment->user->name}}
+                  </b>,
                   {{ $comment->content }}
                </li>
             @endforeach
          </ul>
+
+         @auth
+            <form action="{{ url("/comments/add") }}" method="post">
+               @csrf
+               <input type="hidden" name="article_id" value="{{ $article->id }}">
+               <textarea name="content" class="form-control my-2"></textarea>
+               <button class="btn btn-secondary">Add Comment</button>
+            </form>
+         @endauth
     </div>
 @endsection
