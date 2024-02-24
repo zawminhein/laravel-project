@@ -32,9 +32,11 @@
                     <ul class="navbar-nav me-auto">
                         @auth
                         <li class="nav-item">
-                            <a href="{{ url("/articles/add")}}" class="nav-link text-success">
+                            @auth
+                                <a href="{{ url("/articles/add")}}" class="nav-link text-success">
                                 + New Article
-                            </a>
+                                </a>
+                            @endauth
                         </li>
                         @endauth
                     </ul>
